@@ -1,6 +1,6 @@
 // Q:https://leetcode.com/problems/merge-strings-alternately/description/?envType=study-plan-v2&envId=leetcode-75
 // level:easy
-// company:[Uber]
+// company:['Uber']
 // topics:['Two Pointers','String']
 
 // time:O(max(N, M))
