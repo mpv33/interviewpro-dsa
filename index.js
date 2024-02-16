@@ -6,6 +6,7 @@ import questionRoutes from './routes/questionRoutes.js';
 import Connection from './database/db.js';
 import swaggerUi from 'swagger-ui-express';
 import YAML from 'yamljs';
+import path from 'path';
 
 dotenv.config();
 
@@ -28,13 +29,9 @@ app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Load your Swagger/OpenAPI Specification document
-let swaggerDocument;
-try {
-    swaggerDocument = YAML.load('./swagger.yaml'); 
-} catch (error) {
-    console.error('Error loading Swagger document:', error);
-    process.exit(1); // Exit the process if unable to load Swagger document
-}
+const swaggerFilePath = path.resolve(new URL(import.meta.url).pathname, '../swagger.yaml');
+const swaggerDocument = YAML.load(swaggerFilePath);
+
 // Serve Swagger UI
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
