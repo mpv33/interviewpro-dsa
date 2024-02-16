@@ -4,7 +4,7 @@ info:
   description: API documentation for InterviewPro DSA (Data Structures and Algorithms)
   version: 1.0.0
 servers:
-  - url:https://interviewpro-dsa.vercel.app/dsa
+  - url: http://localhost:9000/dsa
 paths:
   /questions:
     get:
