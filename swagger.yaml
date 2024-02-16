@@ -1,0 +1,108 @@
+openapi: 3.0.0
+info:
+  title: InterviewPro DSA API
+  description: API documentation for InterviewPro DSA (Data Structures and Algorithms)
+  version: 1.0.0
+servers:
+  - url: http://localhost:8000/dsa
+paths:
+  /questions:
+    get:
+      summary: Get all questions
+      operationId: getAllQuestions
+      responses:
+        '200':
+          description: Successfully retrieved the list of questions
+        '500':
+          description: Internal server error
+  /question/{id}:
+    get:
+      summary: Get a question by ID
+      operationId: getQuestionById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID of the question to get
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the question
+        '404':
+          description: Question not found
+        '500':
+          description: Internal server error
+    post:
+      summary: Add a new question
+      operationId: addQuestion
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Question'
+      responses:
+        '201':
+          description: Successfully added a new question
+        '400':
+          description: Bad request
+        '500':
+          description: Internal server error
+    put:
+      summary: Update a question by ID
+      operationId: updateQuestionById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID of the question to update
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Question'
+      responses:
+        '200':
+          description: Successfully updated the question
+        '404':
+          description: Question not found
+        '500':
+          description: Internal server error
+    delete:
+      summary: Delete a question by ID
+      operationId: deleteQuestionById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID of the question to delete
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully deleted the question
+        '404':
+          description: Question not found
+        '500':
+          description: Internal server error
+components:
+  schemas:
+    Question:
+      type: object
+      properties:
+        title:
+          type: string
+        questionUrl:
+          type: string
+        company:
+          type: array
+          items:
+            type: string
+        level:
+          type: string
+        answer:
+          type: string
