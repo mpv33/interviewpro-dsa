@@ -16,20 +16,25 @@ Connection(db);
 
 // CORS configuration
 app.use(cors());
-// app.use((req, res, next) => {
-//   res.setHeader('Access-Control-Allow-Origin', '*'); // Allow requests from all origins
-//   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-//   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-//   next();
-// });
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*'); // Allow requests from all origins
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});
 
 // Middleware
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Load your Swagger/OpenAPI Specification document
-const swaggerDocument = YAML.load('./swagger.yaml'); // Provide the path to your Swagger YAML file
-
+let swaggerDocument;
+try {
+    swaggerDocument = YAML.load('./swagger.yaml'); 
+} catch (error) {
+    console.error('Error loading Swagger document:', error);
+    process.exit(1); // Exit the process if unable to load Swagger document
+}
 // Serve Swagger UI
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
