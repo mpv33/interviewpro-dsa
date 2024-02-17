@@ -39,8 +39,15 @@ try {
 }
 
 // Serve Swagger UI
-app.use('/api-docs', swaggerUi.serve);
-app.get('/api-docs', swaggerUi.setup(swaggerDocument));
+// app.use('/api-docs', swaggerUi.serve);
+// app.get('/api-docs', swaggerUi.setup(swaggerDocument));
+
+// Serve Swagger document as JSON
+app.get('/api-docs', (req, res) => {
+    const formattedSwagger = JSON.stringify(swaggerDocument, null, 2); // Indent with 2 spaces
+    res.setHeader('Content-Type', 'application/json');
+    res.send(formattedSwagger);
+});
 
 // Application routes
 app.use('/dsa', questionRoutes);
