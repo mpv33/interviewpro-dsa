@@ -6,7 +6,7 @@ import questionRoutes from './routes/questionRoutes.js';
 import Connection from './database/db.js';
 import swaggerUi from 'swagger-ui-express';
 import YAML from 'yamljs';
-import path from 'path';
+import path from 'path'; // Import path module
 
 dotenv.config();
 
@@ -30,18 +30,21 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 let swaggerDocument;
 try {
-    swaggerDocument = YAML.load('./swagger.yaml'); 
+    const currentFileUrl = import.meta.url;
+    const currentDir = path.dirname(new URL(currentFileUrl).pathname);
+    const swaggerPath = path.join(currentDir, 'swagger.yaml');
+    swaggerDocument = YAML.load(swaggerPath); 
 } catch (error) {
     console.error('Error loading Swagger document:', error);
     process.exit(1); 
 } 
 
 // Serve Swagger UI
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.get('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
 // Link to Swagger documentation at the root route
-app.use('/', (req, res) => {
+app.get('/', (req, res) => {
     res.redirect('/api-docs');
 });
 
