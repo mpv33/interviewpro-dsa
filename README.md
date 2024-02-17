@@ -48,6 +48,7 @@ To get started with the InterviewPro Backend API, follow these steps:
    ```
    PORT=8000
    DB_URI=your_database_connection_string
+   AUTH_TOKEN=your private token
    ```
 
 4. **Start the Server:**
