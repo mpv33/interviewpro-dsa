@@ -121,3 +121,16 @@ export const deleteQuestion = async (req, res) => {
         });
     }
 };
+
+export const deleteAllQuestions = async (req, res) => {
+    try {
+        // Delete all documents from the Question collection
+        await Question.deleteMany({});
+        
+        // Send a success response
+        res.json({ message: 'All questions deleted successfully' });
+    } catch (error) {
+        // Handle any errors and send an error response
+        res.status(500).json({ error: 'Failed to delete questions', message: error.message });
+    }
+};
