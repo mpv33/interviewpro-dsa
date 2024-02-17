@@ -33,14 +33,14 @@ try {
     const currentFileUrl = import.meta.url;
     const currentDir = path.dirname(new URL(currentFileUrl).pathname);
     const swaggerPath = path.join(currentDir, 'swagger.yaml');
-    swaggerDocument = YAML.load(swaggerPath); 
+    swaggerDocument = YAML.load(swaggerPath);
 } catch (error) {
     console.error('Error loading Swagger document:', error);
-    process.exit(1); 
-} 
+    process.exit(1);
+}
 
 // Serve Swagger UI
-app.get('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
 // Link to Swagger documentation at the root route
