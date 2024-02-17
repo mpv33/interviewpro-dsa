@@ -28,15 +28,20 @@ app.use((req, res, next) => {
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Load your Swagger/OpenAPI Specification document
-const swaggerFilePath = path.resolve(new URL(import.meta.url).pathname, '../swagger.yaml');
-const swaggerDocument = YAML.load(swaggerFilePath);
+let swaggerDocument;
+try {
+    swaggerDocument = YAML.load('./swagger.yaml'); 
+} catch (error) {
+    console.error('Error loading Swagger document:', error);
+    process.exit(1); 
+} 
 
 // Serve Swagger UI
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
+
 // Link to Swagger documentation at the root route
-app.get('/', (req, res) => {
+app.use('/', (req, res) => {
     res.redirect('/api-docs');
 });
 
