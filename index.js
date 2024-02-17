@@ -39,14 +39,13 @@ try {
     process.exit(1);
 }
 
-// Serve Swagger UI
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
-
 // Link to Swagger documentation at the root route
 app.get('/', (req, res) => {
     res.redirect('/api-docs');
 });
+
+// Serve Swagger UI
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use('/dsa', questionRoutes);
 
