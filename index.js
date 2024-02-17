@@ -28,26 +28,27 @@ app.use((req, res, next) => {
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Load Swagger document
 let swaggerDocument;
 try {
-    const currentFileUrl = import.meta.url;
-    const currentDir = path.dirname(new URL(currentFileUrl).pathname);
-    const swaggerPath = path.join(currentDir, 'swagger.yaml');
+    const swaggerPath = path.join(process.cwd(), 'swagger.yaml'); // Adjust the path if needed
     swaggerDocument = YAML.load(swaggerPath);
 } catch (error) {
     console.error('Error loading Swagger document:', error);
     process.exit(1);
 }
 
-// Link to Swagger documentation at the root route
+// Serve Swagger UI
+app.use('/api-docs', swaggerUi.serve);
+app.get('/api-docs', swaggerUi.setup(swaggerDocument));
+
+// Application routes
+app.use('/dsa', questionRoutes);
+
+// Redirect root to Swagger documentation
 app.get('/', (req, res) => {
     res.redirect('/api-docs');
 });
-
-// Serve Swagger UI
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
-app.use('/dsa', questionRoutes);
 
 // Start the server
 app.listen(PORT, () => {
