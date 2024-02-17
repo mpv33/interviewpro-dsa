@@ -15,6 +15,23 @@ paths:
           description: Successfully retrieved the list of questions
         '500':
           description: Internal server error
+  /question: 
+    post:
+      summary: Add a new question
+      operationId: addQuestion
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Question'
+      responses:
+        '201':
+          description: Successfully added a new question
+        '400':
+          description: Bad request
+        '500':
+          description: Internal server error
   /question/{id}:
     get:
       summary: Get a question by ID
@@ -31,22 +48,6 @@ paths:
           description: Successfully retrieved the question
         '404':
           description: Question not found
-        '500':
-          description: Internal server error
-    post:
-      summary: Add a new question
-      operationId: addQuestion
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Question'
-      responses:
-        '201':
-          description: Successfully added a new question
-        '400':
-          description: Bad request
         '500':
           description: Internal server error
     put:
