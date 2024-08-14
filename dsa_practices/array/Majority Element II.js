@@ -21,40 +21,45 @@ function majorityElement(nums) {
 
     return result;
 }
-
 function majorityElement(nums) {
     // space o(1)
-    const result = [];
-    const n = nums.length;
-    
-    if (n === 0) return result;
-    if (n === 1) return [nums[0]];
+    let candidate1 = null, candidate2 = null;
+    let count1 = 0, count2 = 0;
 
-    // Sort the array
-    nums.sort((a, b) => a - b);
-
-    // Variables to track current element and its count
-    let current = nums[0];
-    let count = 1;
-
-    // Traverse the sorted array
-    for (let i = 1; i < n; i++) {
-        if (nums[i] === current) {
-            count++;
+    // Step 1: Find potential candidates
+    for (let num of nums) {
+        if (num === candidate1) {
+            count1++;
+        } else if (num === candidate2) {
+            count2++;
+        } else if (count1 === 0) {
+            candidate1 = num;
+            count1 = 1;
+        } else if (count2 === 0) {
+            candidate2 = num;
+            count2 = 1;
         } else {
-            if (count > Math.floor(n / 3)) {
-                result.push(current);
-            }
-            // Update current and reset count
-            current = nums[i];
-            count = 1;
+            count1--;
+            count2--;
         }
     }
 
-    // Final check for the last element
-    if (count > Math.floor(n / 3)) {
-        result.push(current);
+    // Step 2: Validate candidates
+    count1 = 0;
+    count2 = 0;
+    for (let num of nums) {
+        if (num === candidate1) {
+            count1++;
+        } else if (num === candidate2) {
+            count2++;
+        }
     }
+
+    const result = [];
+    const threshold = Math.floor(nums.length / 3);
+
+    if (count1 > threshold) result.push(candidate1);
+    if (count2 > threshold) result.push(candidate2);
 
     return result;
 }
