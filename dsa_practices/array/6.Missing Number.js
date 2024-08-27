@@ -2,20 +2,12 @@
 // Microsoft ✯   Amazon ✯   Facebook ✯   Adobe ✯   Apple ✯   Salesforce   VMware   Nvidia
 
 
-
- var missingNumber = function(nums) {
-    let n = nums.length;
-    let totalSum = (n * (n + 1)) / 2;
-    let actualSum = 0;
-    
-    for (let i = 0; i < nums.length; i++) {
-        actualSum += nums[i];
-    }
-    
-    return totalSum - actualSum;
+var missingNumber = function(nums) {
+    const n = nums.length;
+    const Tsum = (n * (n + 1)) / 2;
+    const actualSum = nums.reduce((acc, num) => acc + num, 0);
+    return Tsum - actualSum;
 };
-
-
 
  var missingNumber = function(nums) {
     let n = nums.length;

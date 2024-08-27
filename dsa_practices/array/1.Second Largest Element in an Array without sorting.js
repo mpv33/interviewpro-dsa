@@ -1,29 +1,24 @@
 // https://www.geeksforgeeks.org/find-second-largest-element-array/
-// 
+// SAP LabsRockstand
 
 function findSecondLargest(arr) {
-    if (arr.length < 2) {
-        return "The second largest does not exist.";
-    }
+    let n = arr.length;
+    if (n < 2) return -1;
 
-    let largest = arr[0];
-    let secondLargest = null;
+    let largest = -Infinity, secondLargest = -Infinity;
 
-    for (let i = 1; i < arr.length; i++) {
+    for (let i = 0; i < n; i++) {
         if (arr[i] > largest) {
             secondLargest = largest;
             largest = arr[i];
-        } else if (arr[i] < largest && (secondLargest === null || arr[i] > secondLargest)) {
+        } else if (arr[i] > secondLargest && arr[i] < largest) {
             secondLargest = arr[i];
         }
     }
 
-    if (secondLargest === null) {
-        return "The second largest does not exist.";
-    } else {
-        return `The second largest element is ${secondLargest}.`;
-    }
+    return secondLargest === -Infinity ? -1 : secondLargest;
 }
+
 
 // Test cases
 console.log(findSecondLargest([12, 35, 1, 10, 34, 1])); // Output: The second largest element is 34
