@@ -20,7 +20,7 @@ function longestSubArrayWithSumK(arr, k) {
     return maxLength;
 }
 
-// time o(n) space o(N) 
+// time o(n) space o(n) 
 function longestSubArrayWithSumK(arr, k) {
     let map = new Map(); // To store (cumulative sum, index) pairs
     let maxLength = 0;
