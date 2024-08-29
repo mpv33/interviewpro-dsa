@@ -1,10 +1,6 @@
 // https://leetcode.com/problems/maximum-product-subarray/description/
 //  LinkedIn ✯   Amazon ✯   Microsoft ✯   Bloomberg ✯   Infosys ✯   Google   Adobe
 
-/**
- * @param {number[]} nums
- * @return {number}
- */
  var maxProduct = function(nums) {
     let maxProduct = nums[0];
     let minProduct = nums[0];

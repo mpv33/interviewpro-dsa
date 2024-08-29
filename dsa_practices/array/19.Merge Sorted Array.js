@@ -1,13 +1,6 @@
 // https://leetcode.com/problems/merge-sorted-array/description/
 //  Facebook ✯   Microsoft ✯   Apple ✯   Amazon ✯   LinkedIn ✯   Bloomberg   Shopee   Indeed   Uber   Oracle
 
-/**
- * @param {number[]} nums1
- * @param {number} m
- * @param {number[]} nums2
- * @param {number} n
- * @return {void} Do not return anything, modify nums1 in-place instead.
- */
  var merge = function(nums1, m, nums2, n) {
     let i = m - 1; // Pointer for the end of the initialized part of nums1
     let j = n - 1; // Pointer for the end of nums2
